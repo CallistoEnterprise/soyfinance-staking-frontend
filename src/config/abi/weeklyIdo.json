@@ -1,0 +1,620 @@
+[{
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [{
+        "type": "address",
+        "name": "previousOwner",
+        "internalType": "address",
+        "indexed": true
+    }, {
+        "type": "address",
+        "name": "newOwner",
+        "internalType": "address",
+        "indexed": true
+    }],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "Rescue",
+    "inputs": [{
+        "type": "address",
+        "name": "_token",
+        "internalType": "address",
+        "indexed": false
+    }, {
+        "type": "uint256",
+        "name": "_amount",
+        "internalType": "uint256",
+        "indexed": false
+    }],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "RoundEnds",
+    "inputs": [{
+        "type": "uint256",
+        "name": "roundID",
+        "internalType": "uint256",
+        "indexed": true
+    }, {
+        "type": "uint256",
+        "name": "soySold",
+        "internalType": "uint256",
+        "indexed": false
+    }, {
+        "type": "uint256",
+        "name": "usdCollected",
+        "internalType": "uint256",
+        "indexed": false
+    }],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "SetBank",
+    "inputs": [{
+        "type": "address",
+        "name": "_bank",
+        "internalType": "address",
+        "indexed": false
+    }],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "UserBet",
+    "inputs": [{
+        "type": "uint256",
+        "name": "roundID",
+        "internalType": "uint256",
+        "indexed": true
+    }, {
+        "type": "address",
+        "name": "user",
+        "internalType": "address",
+        "indexed": true
+    }, {
+        "type": "address",
+        "name": "token",
+        "internalType": "address",
+        "indexed": true
+    }, {
+        "type": "uint256",
+        "name": "usdValue",
+        "internalType": "uint256",
+        "indexed": false
+    }, {
+        "type": "uint256",
+        "name": "tokenAmount",
+        "internalType": "uint256",
+        "indexed": false
+    }],
+    "anonymous": false
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "RATIO",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+    }],
+    "name": "SoyToken",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "bool",
+        "name": "",
+        "internalType": "bool"
+    }],
+    "name": "allowedToken",
+    "inputs": [{
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "soyToSell",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "usdCollected",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "hardCap",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "softCap",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "start",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "end",
+        "internalType": "uint256"
+    }],
+    "name": "auctionRound",
+    "inputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "auctionRounds",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "auctionStart",
+    "inputs": [{
+        "type": "uint256",
+        "name": "startTime",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "soyPrice",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "address",
+        "name": "",
+        "internalType": "address payable"
+    }],
+    "name": "bank",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "usdValue",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "soyAmount",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "lockedUntil",
+        "internalType": "uint256"
+    }],
+    "name": "bets",
+    "inputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }, {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "claim",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "claimBehalf",
+    "inputs": [{
+        "type": "address",
+        "name": "user",
+        "internalType": "address"
+    }, {
+        "type": "uint256",
+        "name": "fromRound",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "toRound",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "claimBehalf",
+    "inputs": [{
+        "type": "address",
+        "name": "user",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "currentRoundId",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "currentRoundUSD",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "totalUSD",
+        "internalType": "uint256"
+    }],
+    "name": "getCollectedUSD",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "soyToClaim",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "soyLocked",
+        "internalType": "uint256"
+    }],
+    "name": "getTokenToClaim",
+    "inputs": [{
+        "type": "address",
+        "name": "user",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256[]",
+        "name": "lockedSoy",
+        "internalType": "uint256[]"
+    }, {
+        "type": "uint256[]",
+        "name": "lockedDate",
+        "internalType": "uint256[]"
+    }, {
+        "type": "uint256[]",
+        "name": "soyPrice",
+        "internalType": "uint256[]"
+    }, {
+        "type": "uint256",
+        "name": "soyToClaim",
+        "internalType": "uint256"
+    }, {
+        "type": "uint256",
+        "name": "soyLocked",
+        "internalType": "uint256"
+    }],
+    "name": "getUserDetail",
+    "inputs": [{
+        "type": "address",
+        "name": "user",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "initialize",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "bool",
+        "name": "",
+        "internalType": "bool"
+    }],
+    "name": "isPaused",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "lastRoundSoyPrice",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "lockPercentage",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "lockPeriod",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "payable",
+    "outputs": [],
+    "name": "makeBet",
+    "inputs": [{
+        "type": "address",
+        "name": "token",
+        "internalType": "address"
+    }, {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "maxExtendRounds",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "maxPricePercentage",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "minPricePercentage",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+    }],
+    "name": "owner",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+    }],
+    "name": "priceFeed",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "rescueTokens",
+    "inputs": [{
+        "type": "address",
+        "name": "_token",
+        "internalType": "address"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "roundDuration",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setAllowedToken",
+    "inputs": [{
+        "type": "address",
+        "name": "token",
+        "internalType": "address"
+    }, {
+        "type": "bool",
+        "name": "state",
+        "internalType": "bool"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setAuctionRounds",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setBank",
+    "inputs": [{
+        "type": "address",
+        "name": "_bank",
+        "internalType": "address payable"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setLastRoundSoyPrice",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setLockPercentage",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setLockPeriod",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setMaxExtendRounds",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setMaxPricePercentage",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setMinPricePercentage",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setPause",
+    "inputs": [{
+        "type": "bool",
+        "name": "state",
+        "internalType": "bool"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "setRoundDuration",
+    "inputs": [{
+        "type": "uint256",
+        "name": "val",
+        "internalType": "uint256"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "tokenReceived",
+    "inputs": [{
+        "type": "address",
+        "name": "_from",
+        "internalType": "address"
+    }, {
+        "type": "uint256",
+        "name": "_value",
+        "internalType": "uint256"
+    }, {
+        "type": "bytes",
+        "name": "_data",
+        "internalType": "bytes"
+    }]
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "totalSoySold",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+    }],
+    "name": "totalSoyToSell",
+    "inputs": []
+}, {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "transferOwnership",
+    "inputs": [{
+        "type": "address",
+        "name": "newOwner",
+        "internalType": "address"
+    }]
+}, {
+    "type": "receive",
+    "stateMutability": "payable"
+}]

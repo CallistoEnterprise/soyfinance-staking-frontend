@@ -1,0 +1,47 @@
+{
+  "name": "SoySwap Default List",
+  "timestamp": "2021-05-20T09:56:23Z",
+  "version": {
+    "major": 2,
+    "minor": 2,
+    "patch": 0
+  },
+  
+  "tags": {},
+  "logoURI": "localhost:3000/images/clo.png",
+  "keywords": ["soyswap", "default"],
+  "tokens": [
+    {
+      "name": "Callisto Enterprise",
+      "symbol": "CLOE",
+      "address": "0xF247c669E08837129965fF3cBcaC9E3695A9684B",
+      "chainId": 20729,
+      "decimals": 18,
+      "logoURI": "localhost:3000/images/coins/0xF247c669E08837129965fF3cBcaC9E3695A9684B.png"
+    },
+    {
+      "name": "Coinary Token",
+      "symbol": "CYT",
+      "address": "0x0fA3Aab74949a4F43261EB38E3c29E126CAF4864",
+      "chainId": 20729,
+      "decimals": 18,
+      "logoURI": "localhost:3000/images/coins/0x0fA3Aab74949a4F43261EB38E3c29E126CAF4864.png"
+    },
+    {
+      "name": "Bulls USD",
+      "symbol": "BUSDT",
+      "address": "0xAB99622d19298EC2BEAB50EFF91A9b6F46Af747C",
+      "chainId": 20729,
+      "decimals": 18,
+      "logoURI": "localhost:3000/images/coins/0xAB99622d19298EC2BEAB50EFF91A9b6F46Af747C.png"
+    },
+        {
+      "name": "Wrapped TWT",
+      "symbol": "ccTWT",
+      "address": "0xCC099e75152ACCda96d54FAbaf6e333ca44AD86e",
+      "chainId": 820,
+      "decimals": 18,
+      "logoURI": "https://app.soy.finance/images/coins/0xCC099e75152ACCda96d54FAbaf6e333ca44AD86e.png"
+    }
+  ]
+}
