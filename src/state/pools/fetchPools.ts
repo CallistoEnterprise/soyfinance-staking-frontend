@@ -23,12 +23,12 @@ export const fetchPoolsBlockLimits = async () => {
     }
   })
 
-  const starts = await multicall(sousChefABI, callsStartBlock)
-  const ends = await multicall(sousChefABI, callsEndBlock)
+  // const starts = await multicall(sousChefABI, callsStartBlock)
+  // const ends = await multicall(sousChefABI, callsEndBlock)
 
   return poolsWithEnd.map((cakePoolConfig, index) => {
-    const startBlock = starts[index]
-    const endBlock = ends[index]
+    const startBlock = 11111 // starts[index]
+    const endBlock = 22222 // ends[index]
     return {
       sousId: cakePoolConfig.sousId,
       startBlock: new BigNumber(startBlock).toJSON(),
@@ -57,26 +57,38 @@ export const fetchPoolsTotalStaking = async () => {
     }
   })
 
-  const nonBnbPoolsTotalStaked = await multicall(soyABI, callsNonBnbPools)
-  const bnbPoolsTotalStaked = await multicall(wmaticABI, callsBnbPools)
+  // const nonBnbPoolsTotalStaked = await multicall(soyABI, callsNonBnbPools)
+  // const bnbPoolsTotalStaked = await multicall(wmaticABI, callsBnbPools)
 
+  // return [
+  //   ...nonBnbPools.map((p, index) => ({
+  //     sousId: p.sousId,
+  //     totalStaked: new BigNumber(nonBnbPoolsTotalStaked[index]).toJSON(),
+  //   })),
+  //   ...bnbPool.map((p, index) => ({
+  //     sousId: p.sousId,
+  //     totalStaked: new BigNumber(bnbPoolsTotalStaked[index]).toJSON(),
+  //   })),
+  // ]
   return [
     ...nonBnbPools.map((p, index) => ({
       sousId: p.sousId,
-      totalStaked: new BigNumber(nonBnbPoolsTotalStaked[index]).toJSON(),
+      totalStaked: new BigNumber(0).toJSON(),
     })),
     ...bnbPool.map((p, index) => ({
       sousId: p.sousId,
-      totalStaked: new BigNumber(bnbPoolsTotalStaked[index]).toJSON(),
+      totalStaked: new BigNumber(0).toJSON(),
     })),
   ]
 }
 
 export const fetchPoolStakingLimit = async (sousId: number): Promise<BigNumber> => {
   try {
-    const sousContract = getSouschefV2Contract(sousId)
-    const stakingLimit = await sousContract.poolLimitPerUser()
-    return new BigNumber(stakingLimit.toString())
+    // const sousContract = getSouschefV2Contract(sousId)
+    // const stakingLimit = await sousContract.poolLimitPerUser()
+    // return new BigNumber(stakingLimit.toString())
+    return new BigNumber(0)
+  
   } catch (error) {
     return BIG_ZERO
   }

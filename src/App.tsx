@@ -18,7 +18,7 @@ import EasterEgg from './components/EasterEgg'
 import history from './routerHistory'
 import RouteChangeTracker from './RouteChangeTracker'
 // Views included in the main bundle
-import Pools from './views/Pools'
+// import Pools from './views/Pools'
 // import Swap from './views/Swap'
 // import IDO from './views/IDO'
 // import {
@@ -93,9 +93,9 @@ const App: React.FC = () => {
             <BodyWrapper>
               <SuspenseWithChunkError fallback={<PageLoader />}>
                 <Switch>
-                  <Route path="/" exact>
+                  {/* <Route path="/" exact>
                     <Pools />
-                  </Route>
+                  </Route> */}
                   {/* <Route path="/" exact>
                     <Home />
                   </Route> */}

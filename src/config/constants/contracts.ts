@@ -25,7 +25,7 @@ export default {
   },
   multiCall: {
     820: '0x3c4127A01b75E3741DD40A7a044BC70e3Ed4e77C',
-    20729: '0xDd2742Ba146A57F1F6e8F47235024ba1bd0cf568',
+    20729: '0x3cd06Cc1355eEDC499e31040052e7e9eE87771e7',
   },
   pmoonVault: {
     820: '0x3e560FF3b0f1fBEba409Caa62eDE63f6b7259Ee8',
