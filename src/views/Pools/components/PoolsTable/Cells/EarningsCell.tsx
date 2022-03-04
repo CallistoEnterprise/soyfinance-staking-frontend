@@ -38,10 +38,10 @@ const EarningsCell: React.FC<EarningsCellProps> = ({ pool, account, userDataLoad
 
   const earnings = userData?.pendingReward ? new BigNumber(userData.pendingReward) : BIG_ZERO
   // These will be reassigned later if its Auto SOY vault
-  let earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals)
-  let earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice), earningToken.decimals)
+  let earningTokenBalance = getBalanceNumber(earnings, earningToken?.decimals)
+  let earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice ?? 0.104), earningToken?.decimals)
   let hasEarnings = account && earnings.gt(0)
-  const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals)
+  const fullBalance = getFullDisplayBalance(earnings, earningToken?.decimals)
   const formattedBalance = formatNumber(earningTokenBalance, 3, 3)
   const isBnbPool = poolCategory === PoolCategory.CLO
 
@@ -62,7 +62,7 @@ const EarningsCell: React.FC<EarningsCellProps> = ({ pool, account, userDataLoad
   const dateTimeLastAction = new Date(lastActionInMs)
   const dateStringToDisplay = dateTimeLastAction.toLocaleString()
 
-  const labelText = isAutoVault ? t('Recent SOY profit') : t('%asset% Earned', { asset: earningToken.symbol })
+  const labelText = isAutoVault ? t('Recent SOY profit') : t('%asset% Earned', { asset: earningToken?.symbol })
   earningTokenBalance = isAutoVault ? autoCakeToDisplay : earningTokenBalance
   hasEarnings = isAutoVault ? hasAutoEarnings : hasEarnings
   earningTokenDollarBalance = isAutoVault ? autoUsdToDisplay : earningTokenDollarBalance

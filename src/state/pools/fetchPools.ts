@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js'
 import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
 import soyABI from 'config/abi/soy.json'
-import wmaticABI from 'config/abi/weth.json'
-import multicall from 'utils/multicall'
-import { getAddress, getWmaticAddress } from 'utils/addressHelpers'
+import wcloABI from 'config/abi/weth.json'
+import {multicall3} from 'utils/multicall'
+import { getAddress, getWcloAddress } from 'utils/addressHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { getSouschefV2Contract } from 'utils/contractHelpers'
 
@@ -13,24 +13,24 @@ export const fetchPoolsBlockLimits = async () => {
   const callsStartBlock = poolsWithEnd.map((poolConfig) => {
     return {
       address: getAddress(poolConfig.contractAddress),
-      name: 'startBlock',
+      name: 'BlockStartStaking',
     }
   })
   const callsEndBlock = poolsWithEnd.map((poolConfig) => {
     return {
       address: getAddress(poolConfig.contractAddress),
-      name: 'bonusEndBlock',
+      name: 'LastBlock',
     }
   })
 
-  const starts = await multicall(sousChefABI, callsStartBlock)
-  const ends = await multicall(sousChefABI, callsEndBlock)
+  const starts = await multicall3(sousChefABI, callsStartBlock)
+  const ends = await multicall3(sousChefABI, callsEndBlock)
 
-  return poolsWithEnd.map((cakePoolConfig, index) => {
+  return poolsWithEnd.map((soyPoolConfig, index) => {
     const startBlock = starts[index]
     const endBlock = ends[index]
     return {
-      sousId: cakePoolConfig.sousId,
+      sousId: soyPoolConfig.sousId,
       startBlock: new BigNumber(startBlock).toJSON(),
       endBlock: new BigNumber(endBlock).toJSON(),
     }
@@ -38,45 +38,45 @@ export const fetchPoolsBlockLimits = async () => {
 }
 
 export const fetchPoolsTotalStaking = async () => {
-  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'CLO')
+  const nonCloPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'CLO')
   const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'CLO')
 
-  const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
+  const callsNonCloPools = nonCloPools.map((poolConfig) => {
     return {
       address: getAddress(poolConfig.stakingToken.address),
-      name: 'balanceOf',
-      params: [getAddress(poolConfig.contractAddress)],
+      name: 'TotalStakingAmount',
+      // params: [getAddress(poolConfig.contractAddress)],
     }
   })
 
-  const callsBnbPools = bnbPool.map((poolConfig) => {
+  const callsCloPools = bnbPool.map((poolConfig) => {
     return {
-      address: getWmaticAddress(),
+      address: getWcloAddress(),
       name: 'balanceOf',
       params: [getAddress(poolConfig.contractAddress)],
     }
   })
 
-  const nonBnbPoolsTotalStaked = await multicall(soyABI, callsNonBnbPools)
-  const bnbPoolsTotalStaked = await multicall(wmaticABI, callsBnbPools)
+  const nonCloPoolsTotalStaked = await multicall3(sousChefABI, callsNonCloPools)
+  const cloPoolsTotalStaked = await multicall3(wcloABI, callsCloPools)
 
   return [
-    ...nonBnbPools.map((p, index) => ({
+    ...nonCloPools.map((p, index) => ({
       sousId: p.sousId,
-      totalStaked: new BigNumber(nonBnbPoolsTotalStaked[index]).toJSON(),
+      totalStaked: new BigNumber(nonCloPoolsTotalStaked[index]).toJSON(),
     })),
     ...bnbPool.map((p, index) => ({
       sousId: p.sousId,
-      totalStaked: new BigNumber(bnbPoolsTotalStaked[index]).toJSON(),
+      totalStaked: new BigNumber(cloPoolsTotalStaked[index]).toJSON(),
     })),
   ]
 }
 
 export const fetchPoolStakingLimit = async (sousId: number): Promise<BigNumber> => {
   try {
-    const sousContract = getSouschefV2Contract(sousId)
-    const stakingLimit = await sousContract.poolLimitPerUser()
-    return new BigNumber(stakingLimit.toString())
+    // const sousContract = getSouschefV2Contract(sousId)
+    // const stakingLimit = await sousContract.poolLimitPerUser()
+    return new BigNumber(90000000)
   } catch (error) {
     return BIG_ZERO
   }

@@ -1,408 +1,193 @@
 [
+  { "type": "constructor", "stateMutability": "nonpayable", "inputs": [] },
   {
+    "type": "event",
+    "name": "Claim",
     "inputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "_psyrup",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_rewardPerBlock",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_startBlock",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_endBlock",
-        "type": "uint256"
-      }
+      { "type": "address", "name": "staker", "internalType": "address", "indexed": false },
+      { "type": "uint256", "name": "reward", "internalType": "uint256", "indexed": false }
     ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "DonationDeposited",
+    "inputs": [
+      { "type": "address", "name": "_address", "internalType": "address", "indexed": false },
+      { "type": "uint256", "name": "value", "internalType": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "StartStaking",
+    "inputs": [
+      { "type": "address", "name": "addr", "internalType": "address", "indexed": false },
+      { "type": "uint256", "name": "value", "internalType": "uint256", "indexed": false },
+      { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false },
+      { "type": "uint256", "name": "time", "internalType": "uint256", "indexed": false },
+      { "type": "uint256", "name": "end_time", "internalType": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WithdrawStake",
+    "inputs": [
+      { "type": "address", "name": "staker", "internalType": "address", "indexed": false },
+      { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "BlockStartStaking",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "LastBlock",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "SOY",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "StakingRewardPool",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "Timestamp",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "TotalStakingAmount",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "TotalStakingWeight",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "admin",
+    "inputs": []
+  },
+  { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "claim", "inputs": [] },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "globalFarm",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "max_delay",
+    "inputs": []
+  },
+  {
+    "type": "function",
     "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "Deposit",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "EmergencyWithdraw",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "OwnershipTransferred",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "Withdraw",
-    "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "addressLength",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "addressList",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "bonusEndBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "delayPeriod",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "deposit",
     "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "notifyRewardAmount",
+    "inputs": [{ "type": "uint256", "name": "reward", "internalType": "uint256" }]
   },
   {
-    "inputs": [],
-    "name": "emergencyWithdraw",
+    "type": "function",
+    "stateMutability": "nonpayable",
     "outputs": [],
+    "name": "report_abuse",
+    "inputs": [{ "type": "address", "name": "_addr", "internalType": "address payable" }]
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "round_interval",
+    "inputs": []
+  },
+  {
+    "type": "function",
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_from",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_to",
-        "type": "uint256"
-      }
-    ],
-    "name": "getRewardBlockCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "count",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      }
-    ],
-    "name": "pendingReward",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "poolInfo",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "lastRewardBlock",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "accRewardPerShare",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "psyrup",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "renounceOwnership",
     "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "setStakeUntil",
+    "inputs": [{ "type": "uint256", "name": "newDate", "internalType": "uint256" }]
   },
   {
-    "inputs": [],
-    "name": "rewardPerBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "type": "function",
     "stateMutability": "view",
-    "type": "function"
+    "outputs": [{ "type": "uint256", "name": "_reward", "internalType": "uint256" }],
+    "name": "stake_reward",
+    "inputs": [{ "type": "address", "name": "_addr", "internalType": "address" }]
   },
   {
-    "inputs": [],
-    "name": "startBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "type": "function",
     "stateMutability": "view",
-    "type": "function"
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "stake_until",
+    "inputs": []
   },
   {
-    "inputs": [],
-    "name": "startUp",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "type": "function",
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newDelay",
-        "type": "uint256"
-      }
-    ],
-    "name": "updateDelayPeriod",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "updatePool",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "_flag",
-        "type": "bool"
-      }
-    ],
-    "name": "updateStartUp",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "userInfo",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "rewardDebt",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "rewardPending",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "stakeTime",
-        "type": "uint256"
-      }
+      { "type": "uint256", "name": "amount", "internalType": "uint256" },
+      { "type": "uint256", "name": "time", "internalType": "uint256" },
+      { "type": "uint256", "name": "multiplier", "internalType": "uint256" },
+      { "type": "uint256", "name": "end_time", "internalType": "uint256" }
     ],
-    "stateMutability": "view",
-    "type": "function"
+    "name": "staker",
+    "inputs": [{ "type": "address", "name": "", "internalType": "address" }]
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "withdraw",
-    "outputs": [],
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "staking_threshold",
+    "inputs": []
+  },
+  {
+    "type": "function",
     "stateMutability": "nonpayable",
-    "type": "function"
-  }
+    "outputs": [],
+    "name": "tokenReceived",
+    "inputs": [
+      { "type": "address", "name": "_from", "internalType": "address" },
+      { "type": "uint256", "name": "_value", "internalType": "uint256" },
+      { "type": "bytes", "name": "_data", "internalType": "bytes" }
+    ]
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "outputs": [],
+    "name": "withdraw_stake",
+    "inputs": [{ "type": "address", "name": "user", "internalType": "address payable" }]
+  },
+  { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "withdraw_stake", "inputs": [] }
 ]

@@ -20,7 +20,7 @@ export const getLocalFarmAddress = (farmAddresses) => {
 export const getMulticallAddress = () => {
   return getAddress(addresses.multiCall)
 }
-export const getWmaticAddress = () => {
+export const getWcloAddress = () => {
   return getAddress(tokens.wclo.address)
 }
 export const getDailyIdoAddress = () => {

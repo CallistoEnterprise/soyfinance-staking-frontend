@@ -21,6 +21,7 @@ const ViewControls = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  margin-bottom: 2px;
 
   > div {
     padding: 8px 0px;
