@@ -1,1 +1,1 @@
-# soyfinance-v2-frontend
+# soyfinance-staking-frontend
