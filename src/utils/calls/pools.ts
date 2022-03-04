@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js'
 import pools from 'config/constants/pools'
 import sousChefV2 from 'config/abi/sousChefV2.json'
-import multicall from '../multicall'
+import {multicall3} from '../multicall'
 import { simpleRpcProvider } from '../providers'
 import { getAddress } from '../addressHelpers'
 
@@ -22,8 +22,8 @@ export const getActivePools = async (block?: number) => {
     address: getAddress(contractAddress),
     name: 'bonusEndBlock',
   }))
-  const startBlocks = await multicall(sousChefV2, startBlockCalls)
-  const endBlocks = await multicall(sousChefV2, endBlockCalls)
+  const startBlocks = await multicall3(sousChefV2, startBlockCalls)
+  const endBlocks = await multicall3(sousChefV2, endBlockCalls)
 
   return eligiblePools.reduce((accum, poolCheck, index) => {
     const startBlock = startBlocks[index] ? new BigNumber(startBlocks[index]) : null

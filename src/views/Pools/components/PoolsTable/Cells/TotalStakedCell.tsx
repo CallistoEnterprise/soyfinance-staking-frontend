@@ -26,14 +26,14 @@ const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
 
   const totalStakedBalance = useMemo(() => {
     if (isAutoVault) {
-      return getBalanceNumber(totalCakeInVault, stakingToken.decimals)
+      return getBalanceNumber(totalCakeInVault, stakingToken?.decimals)
     }
     if (isManualCakePool) {
       const manualCakeTotalMinusAutoVault = new BigNumber(totalStaked).minus(totalCakeInVault)
-      return getBalanceNumber(manualCakeTotalMinusAutoVault, stakingToken.decimals)
+      return getBalanceNumber(manualCakeTotalMinusAutoVault, stakingToken?.decimals)
     }
-    return getBalanceNumber(totalStaked, stakingToken.decimals)
-  }, [isAutoVault, totalCakeInVault, isManualCakePool, totalStaked, stakingToken.decimals])
+    return getBalanceNumber(totalStaked, stakingToken?.decimals)
+  }, [isAutoVault, totalCakeInVault, isManualCakePool, totalStaked, stakingToken?.decimals])
 
   return (
     <StyledCell role="cell">
@@ -43,7 +43,7 @@ const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
         </Text>
         {totalStaked && totalStaked.gte(0) ? (
           <Flex height="20px" alignItems="center">
-            <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken.symbol}`} />
+            <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken?.symbol}`} />
           </Flex>
         ) : (
           <Skeleton width="80px" height="16px" />

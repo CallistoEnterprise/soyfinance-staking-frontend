@@ -52,7 +52,7 @@ const EndsInCell: React.FC<FinishCellProps> = ({ pool }) => {
   // A bit hacky way to determine if public data is loading relying on totalStaked
   // Opted to go for this since we don't really need a separate publicDataLoaded flag
   // anywhere else
-  const isLoadingPublicData = !totalStaked.gt(0) || !currentBlock || (!blocksRemaining && !blocksUntilStart)
+  const isLoadingPublicData = !totalStaked?.gt(0) || !currentBlock || (!blocksRemaining && !blocksUntilStart)
   const showLoading = isLoadingPublicData && !isCakePool && !isFinished
   return (
     <StyledCell role="cell">

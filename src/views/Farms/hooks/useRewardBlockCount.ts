@@ -1,17 +1,17 @@
-// import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-// import masterchefABI from 'config/abi/masterchef.json'
-// import { getMasterChefAddress } from 'utils/addressHelpers'
-// import multicall from 'utils/multicall'
-// import { ONE_YEAR_TIMESTAMP } from 'config'
+import masterchefABI from 'config/abi/masterchef.json'
+import { getMasterChefAddress } from 'utils/addressHelpers'
+import {multicall3} from 'utils/multicall'
+import { ONE_YEAR_TIMESTAMP } from 'config'
 
 const useRewardBlockCount = (): BigNumber => {
-  // const [rewardBlockCount, setRewardBlockCount] = useState(new BigNumber(0))
+  const [rewardBlockCount, setRewardBlockCount] = useState(new BigNumber(100))
   // useEffect(() => {
   //   const startGettingCount = async () => {
   //     const currentTime = Math.floor(Date.now()/1000)
   //     const beforeOneYear = currentTime - ONE_YEAR_TIMESTAMP
-  //     const [count] = await multicall(masterchefABI, [
+  //     const [count] = await multicall3(masterchefABI, [
   //       {
   //         address: getMasterChefAddress(),
   //         name: 'getRewardBlockCount',
@@ -23,7 +23,7 @@ const useRewardBlockCount = (): BigNumber => {
   //   startGettingCount()
   // }, [rewardBlockCount])
 
-  return new BigNumber(0)
+  return rewardBlockCount
 }
 
 export default useRewardBlockCount

@@ -19,15 +19,15 @@ const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props 
 
   const { apr: earningsPercentageToDisplay, roundingDecimals, compoundFrequency } = getAprData(pool, performanceFee)
 
-  const apyModalLink = stakingToken.address ? `/swap?outputCurrency=${getAddress(stakingToken.address)}` : '/swap'
+  const apyModalLink = stakingToken?.address ? `/swap?outputCurrency=${getAddress(stakingToken?.address)}` : '/swap'
 
   const [onPresentApyModal] = useModal(
     <ApyCalculatorModal
       tokenPrice={earningTokenPrice}
       apr={apr}
-      linkLabel={t('Get %symbol%', { symbol: stakingToken.symbol })}
+      linkLabel={t('Get %symbol%', { symbol: stakingToken?.symbol })}
       linkHref={apyModalLink}
-      earningTokenSymbol={earningToken.symbol}
+      earningTokenSymbol={earningToken?.symbol}
       roundingDecimals={roundingDecimals}
       compoundFrequency={compoundFrequency}
       performanceFee={performanceFee}
