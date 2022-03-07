@@ -40,6 +40,7 @@ import pancakeRabbitsAbi from 'config/abi/pancakeRabbits.json'
 import bunnyFactoryAbi from 'config/abi/bunnyFactory.json'
 import bunnySpecialAbi from 'config/abi/bunnySpecial.json'
 import bep20Abi from 'config/abi/erc20.json'
+import erc223Abi from 'config/abi/erc223.json'
 import erc721Abi from 'config/abi/erc721.json'
 import lpTokenAbi from 'config/abi/lpToken.json'
 import soyAbi from 'config/abi/soy.json'
@@ -95,6 +96,11 @@ export function getContract2(address: string, ABI: any, library: Web3Provider, a
 const getContract = (abi: any, address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
   const signerOrProvider = signer ?? simpleRpcProvider
   return new ethers.Contract(address, abi, signerOrProvider)
+}
+
+export const getStakingTokenContract = (id: number, signer?: ethers.Signer | ethers.providers.Provider) => {
+  const config = poolsConfig.find((pool) => pool.sousId === id)
+  return getContract(erc223Abi, getAddress(config.stakingToken.address), signer)
 }
 
 export const getBep20Contract = (address: string, signer?: ethers.Signer | ethers.providers.Provider) => {

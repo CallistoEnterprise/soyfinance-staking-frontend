@@ -57,6 +57,7 @@
     "cids": "^1.0.0",
     "date-fns": "^2.21.3",
     "easymde": "^2.15.0",
+    "eth-block-timestamp": "0.0.6",
     "ethers": "^5.1.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",

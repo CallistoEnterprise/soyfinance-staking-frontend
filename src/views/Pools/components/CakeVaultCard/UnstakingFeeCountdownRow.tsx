@@ -18,7 +18,7 @@ const UnstakingFeeCountdownRow: React.FC<UnstakingFeeCountdownRowProps> = ({ isT
     fees: { withdrawalFee, withdrawalFeePeriod },
   } = useCakeVault()
   const feeAsDecimal = withdrawalFee / 100 || '-'
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(
+  const { targetRef } = useTooltip(
     <>
       <Text bold mb="4px">
         {t('Unstaking fee: %fee%%', { fee: feeAsDecimal })}

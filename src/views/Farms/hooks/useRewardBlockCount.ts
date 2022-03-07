@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import BigNumber from 'bignumber.js'
-import masterchefABI from 'config/abi/masterchef.json'
-import { getMasterChefAddress } from 'utils/addressHelpers'
-import {multicall3} from 'utils/multicall'
-import { ONE_YEAR_TIMESTAMP } from 'config'
+// import masterchefABI from 'config/abi/masterchef.json'
+// import { getMasterChefAddress } from 'utils/addressHelpers'
+// import {multicall3} from 'utils/multicall'
+// import { ONE_YEAR_TIMESTAMP } from 'config'
 
 const useRewardBlockCount = (): BigNumber => {
   const [rewardBlockCount, setRewardBlockCount] = useState(new BigNumber(100))

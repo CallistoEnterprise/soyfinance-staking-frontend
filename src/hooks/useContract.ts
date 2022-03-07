@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import {
   getBep20Contract,
+  getStakingTokenContract,
   getCakeContract,
   getBunnyFactoryContract,
   getBunnySpecialContract,
@@ -98,6 +99,11 @@ export const useMasterchef = () => {
 export const useSousChef = (id) => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getSouschefContract(id, library.getSigner()), [id, library])
+}
+
+export const useStakingTokenContract = (id) => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getStakingTokenContract(id, library.getSigner()), [id, library])
 }
 
 export const useSousChefV2 = (id) => {

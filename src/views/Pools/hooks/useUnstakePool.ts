@@ -1,14 +1,16 @@
 import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
 import { useAppDispatch } from 'state'
+import { DEFAULT_GAS_LIMIT } from 'config'
 import { updateUserStakedBalance, updateUserBalance, updateUserPendingReward } from 'state/actions'
-import { unstakeFarm } from 'utils/calls'
-import { useMasterchef, useSousChef } from 'hooks/useContract'
-import { BIG_TEN } from 'utils/bigNumber'
+import { useSousChef } from 'hooks/useContract'
 
-const sousUnstake = async (sousChefContract, amount, decimals) => {
-  const tx = await sousChefContract.withdraw(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())
+const options = {
+  gasLimit: DEFAULT_GAS_LIMIT,
+}
+
+const sousUnstake = async (sousChefContract) => {
+  const tx = await sousChefContract.withdraw_stake(options)
   const receipt = await tx.wait()
   return receipt.status
 }
@@ -22,17 +24,14 @@ const sousEmergencyUnstake = async (sousChefContract) => {
 const useUnstakePool = (sousId, enableEmergencyWithdraw = false) => {
   const dispatch = useAppDispatch()
   const { account } = useWeb3React()
-  const masterChefContract = useMasterchef()
   const sousChefContract = useSousChef(sousId)
 
   const handleUnstake = useCallback(
-    async (amount: string, decimals: number) => {
-      if (sousId === 0) {
-        // await unstakeFarm(masterChefContract, 0, amount)
-      } else if (enableEmergencyWithdraw) {
+    async () => {
+      if (enableEmergencyWithdraw) {
         await sousEmergencyUnstake(sousChefContract)
       } else {
-        await sousUnstake(sousChefContract, amount, decimals)
+        await sousUnstake(sousChefContract)
       }
       dispatch(updateUserStakedBalance(sousId, account))
       dispatch(updateUserBalance(sousId, account))

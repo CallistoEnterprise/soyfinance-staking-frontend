@@ -1,8 +1,7 @@
 import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
 import erc20ABI from 'config/abi/erc20.json'
-import multicall, {multicall3} from 'utils/multicall'
-import { getBep20Contract, getMasterchefContract } from 'utils/contractHelpers'
+import {multicall3} from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
 import { simpleRpcProvider } from 'utils/providers'
 import BigNumber from 'bignumber.js'
@@ -57,20 +56,29 @@ export const fetchUserStakeBalances = async (account) => {
     name: 'staker',
     params: [account],
   }))
-  const userInfo = await multicall3(sousChefABI, calls)
+  const userInfo1 = await multicall3(sousChefABI, calls)
 
   const stakedBalances = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
-      [pool.sousId]: new BigNumber(userInfo[index].amount.toString()).toJSON(),
+      [pool.sousId]: new BigNumber(userInfo1[index].amount.toString()).toJSON(),
     }),
     {},
   )
-
-  // SOY / SOY pool
+  
+  const userInfo = nonMasterPools.reduce(
+    (acc, pool, index) => ({
+      ...acc,
+      [pool.sousId]: {
+        time: new BigNumber(userInfo1[index].time.toString()).toJSON(),
+        multiplier: new BigNumber(userInfo1[index].multiplier.toString()).toJSON(),
+        endTime: new BigNumber(userInfo1[index].end_time.toString()).toJSON()
+      },
+    }),
+    {},
+  )  // SOY / SOY pool
   // const { amount: masterPoolAmount } = await masterChefContract.userInfo('0', account)
-
-  return { ...stakedBalances } // 0: new BigNumber(masterPoolAmount.toString()).toJSON()
+  return { stakedBalances, userInfo } // 0: new BigNumber(masterPoolAmount.toString()).toJSON()
 }
 
 export const fetchUserPendingRewards = async (account) => {
@@ -79,16 +87,15 @@ export const fetchUserPendingRewards = async (account) => {
     name: 'stake_reward',
     params: [account],
   }))
-  // const res = await multicall3(sousChefABI, calls)
+  const res = await multicall3(sousChefABI, calls)
   const pendingRewards = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
-      [pool.sousId]: new BigNumber(0).toJSON(),
+      [pool.sousId]: new BigNumber(res[index].toString()).toJSON(),
     }),
     {},
   )
   // SOY / SOY pool
   // const pendingReward = await masterChefContract.pendingPmoon('0', account)
-
   return { ...pendingRewards } // 0: new BigNumber(pendingReward.toString()).toJSON()
 }

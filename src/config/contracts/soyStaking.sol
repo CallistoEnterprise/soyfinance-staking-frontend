@@ -115,10 +115,7 @@ contract SoyStaking {
     uint public constant round_interval   = 1 hours; 
     uint public constant max_delay        = 2 days;
     uint public constant BlockStartStaking = 0;
-    //https://github.com/SoyFinance/smart-contracts/tree/main/Farming#testsoy223-token
     address public constant SOY = 0x5331B7E9f950612Ae445eF4C7178649a7E521Aa8;
-
-    // https://github.com/SoyFinance/smart-contracts/tree/main/Farming#test-global-farm-contract-3-minutes
     address public constant globalFarm = 0xD0c75B709659FB2942dd8879535b356ba870bA8c;
     //========== END TEST VALUES ==========
     
@@ -298,7 +295,7 @@ contract SoyStaking {
     //This function may be used for info only. This can show estimated user reward at current time.
     function stake_reward(address _addr) external view returns (uint _reward)
     {
-        require(staker[_addr].amount > 0);
+        //require(staker[_addr].amount > 0);
 
         uint _blocks = block.number - LastBlock;
         uint _seconds = now - Timestamp;

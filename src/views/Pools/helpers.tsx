@@ -37,7 +37,7 @@ const MANUAL_POOL_COMPOUND_FREQUENCY = 1
 export const getAprData = (pool: Pool, performanceFee: number) => {
   const { isAutoVault, earningTokenPrice, apr } = pool
   // special handling for tokens like tBTC or BIFI where the daily token rewards for $1000 dollars will be less than 0.001 of that token
-  const isHighValueToken = Math.round(earningTokenPrice / 1000) > 0
+  const isHighValueToken = Math.round((earningTokenPrice || 0.115) / 1000) > 0
   const roundingDecimals = isHighValueToken ? 4 : 2
 
   //   Estimate & manual for now. 288 = once every 5 mins. We can change once we have a better sense of this

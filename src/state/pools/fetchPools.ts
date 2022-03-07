@@ -1,12 +1,10 @@
 import BigNumber from 'bignumber.js'
 import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
-import soyABI from 'config/abi/soy.json'
 import wcloABI from 'config/abi/weth.json'
 import {multicall3} from 'utils/multicall'
 import { getAddress, getWcloAddress } from 'utils/addressHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
-import { getSouschefV2Contract } from 'utils/contractHelpers'
 
 export const fetchPoolsBlockLimits = async () => {
   const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
@@ -86,7 +84,7 @@ export const fetchPoolStakingLimit = async (sousId: number): Promise<BigNumber> 
   try {
     // const sousContract = getSouschefV2Contract(sousId)
     // const stakingLimit = await sousContract.poolLimitPerUser()
-    return new BigNumber(90000000)
+    return new BigNumber(9000000000000000000000000000)
   } catch (error) {
     return BIG_ZERO
   }

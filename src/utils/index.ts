@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import Blocks from 'eth-block-timestamp'
 import { Contract } from '@ethersproject/contracts'
 import { getAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
@@ -8,6 +10,10 @@ import SoyRouterABI from '../config/abi/soyRouter.json'
 import { ROUTER_ADDRESS } from '../config/constants'
 import { BASE_CALLISTO_SCAN_URLS } from '../config'
 import { TokenAddressMap } from '../state/lists/hooks'
+
+const ethereumInfura = 'https://mainnet.infura.io/v3/f2dcf6879de04faca05b3a01ccc2abd2'
+
+const blocks = new Blocks(ethereumInfura)
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -102,4 +108,19 @@ export function escapeRegExp(string: string): string {
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
   if (currency === ETHER) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
+}
+
+export const useBlockLatestTimestamp = () => {
+  const [time, setTime] = useState(0)
+
+  useEffect(() => {
+      const getTimeStamp = async () => {
+          const { timestamp } = await blocks.getDate('latest')
+          // const d = new Date()
+          // const timestamp = parseInt((d.getTime() / 1000).toString())
+          setTime(timestamp)
+      }
+      getTimeStamp()
+  }, [])
+  return time
 }

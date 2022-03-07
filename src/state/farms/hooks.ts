@@ -106,5 +106,6 @@ export const usePriceCakeBusd = (): BigNumber => {
     return new BigNumber(soyPriceBusdtAsString)
   }, [soyPriceBusdtAsString])
 
-  return soyPriceBusdt
+  // return soyPriceBusdt
+  return new BigNumber('0.115')
 }

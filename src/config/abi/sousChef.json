@@ -182,12 +182,5 @@
       { "type": "bytes", "name": "_data", "internalType": "bytes" }
     ]
   },
-  {
-    "type": "function",
-    "stateMutability": "nonpayable",
-    "outputs": [],
-    "name": "withdraw_stake",
-    "inputs": [{ "type": "address", "name": "user", "internalType": "address payable" }]
-  },
   { "type": "function", "stateMutability": "nonpayable", "outputs": [], "name": "withdraw_stake", "inputs": [] }
 ]

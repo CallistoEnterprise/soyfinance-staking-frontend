@@ -118,8 +118,9 @@ export const fetchPoolsUserDataAsync =
       sousId: pool.sousId,
       allowance: allowances[pool.sousId],
       stakingTokenBalance: stakingTokenBalances[pool.sousId],
-      stakedBalance: stakedBalances[pool.sousId],
+      stakedBalance: stakedBalances?.stakedBalances[pool.sousId],
       pendingReward: pendingRewards[pool.sousId],
+      stakedStatus: stakedBalances?.userInfo[pool.sousId],
     }))
 
     dispatch(setPoolsUserData(userData))
@@ -143,7 +144,8 @@ export const updateUserStakedBalance =
   (sousId: number, account: string): AppThunk =>
   async (dispatch) => {
     const stakedBalances = await fetchUserStakeBalances(account)
-    dispatch(updatePoolsUserData({ sousId, field: 'stakedBalance', value: stakedBalances[sousId] }))
+    dispatch(updatePoolsUserData({ sousId, field: 'stakedBalance', value: stakedBalances?.stakedBalances[sousId] }))
+    dispatch(updatePoolsUserData({ sousId, field: 'stakedStatus', value: stakedBalances?.userInfo[sousId] }))
   }
 
 export const updateUserPendingReward =
