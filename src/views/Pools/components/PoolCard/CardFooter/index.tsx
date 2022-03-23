@@ -31,19 +31,19 @@ const Footer: React.FC<FooterProps> = ({ pool, account }) => {
     'Any funds you stake in this pool will be automagically harvested and restaked (compounded) for you.',
   )
 
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(isAutoVault ? autoTooltipText : manualTooltipText, {
-    placement: 'bottom',
-  })
+  // const { targetRef, tooltip, tooltipVisible } = useTooltip(isAutoVault ? autoTooltipText : manualTooltipText, {
+  //   placement: 'bottom',
+  // })
 
   return (
     <CardFooter>
       <ExpandableButtonWrapper>
         <Flex alignItems="center">
-          {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />}
-          {tooltipVisible && tooltip}
-          <Flex ref={targetRef}>
+          {/* {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />} */}
+          {/* {tooltipVisible && tooltip} */}
+          {/* <Flex ref={targetRef}>
             <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
-          </Flex>
+          </Flex> */}
         </Flex>
         <ExpandableLabel expanded={isExpanded} onClick={() => setIsExpanded(!isExpanded)}>
           {isExpanded ? t('Hide') : t('Details')}

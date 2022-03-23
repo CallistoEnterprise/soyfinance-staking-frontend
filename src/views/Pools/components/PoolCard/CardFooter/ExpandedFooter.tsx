@@ -96,6 +96,9 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
   return (
     <ExpandedWrapper flexDirection="column">
       <Flex mb="2px" justifyContent="space-between" alignItems="center">
+        <Text small color="primary">{t('Next Harvest In')}:</Text>
+      </Flex>
+      <Flex mb="2px" justifyContent="space-between" alignItems="center">
         <Text small>{t('Total staked')}:</Text>
         <Flex alignItems="flex-start">
           {totalStaked && totalStaked.gte(0) ? (
